@@ -14,14 +14,15 @@ class UpdateController {
 
     @PostMapping("/update")
     public String updateWithNewValue(@RequestParam("youtube-url") final String youtubeUrl) {
+	LOG.info(String.format("Accessing: '%s'", youtubeUrl));
         final Runtime runtime = Runtime.getRuntime();
         try {
-            runtime.exec("killall firefox");
-            runtime.exec("firefox -new-window " + youtubeUrl);
+            runtime.exec("killall firefox-esr");
+            runtime.exec("firefox --new-window " + youtubeUrl);
         } catch(IOException e) {
             e.printStackTrace();
         }
-        return "redirect:home";
+        return "redirect:/";
     }
 
 }
